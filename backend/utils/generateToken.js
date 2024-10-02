@@ -5,6 +5,7 @@ export const generateToken = (res, userId) => {
         expiresIn: "7d",
     });
 
+    // here "token" is name of the cookie
     res.cookie("token", token, {
         httpOnly: true,     // to prevent attack from XSS
         secure: process.env.NODE_ENV === "production",  // secure only if we are in production i.e localhost:http, production:https
