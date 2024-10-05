@@ -11,6 +11,7 @@ import {Toaster} from "react-hot-toast"
 import { useAuthStore } from './store/authStore'
 import { Children, useEffect } from 'react'
 import DashboardPage from './pages/DashboardPage'
+import LoadingSpinner from './components/LoadingSpinner'
 
 // redirect authenticated users to the homepage
 const RedirectUser = ({children}) => {
@@ -44,8 +45,10 @@ function App() {
     checkAuth();
   },[checkAuth])
 
-  console.log("Is authenticated:", isAuthenticated);
-  console.log("user:", user);
+  if(isCheckingAuth) return <LoadingSpinner/>
+
+  // console.log("Is authenticated:", isAuthenticated);
+  // console.log("user:", user);
 
   return (
     <div 
