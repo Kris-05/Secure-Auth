@@ -10,6 +10,7 @@ const EmailVerficationPage = () => {
   const isLoading = false;
 
   const handleChange = (index, value) => {
+    console.log(code);
     const newCode = [...code];
 
     // To Handle pasted content i.e 6 numbers wholly

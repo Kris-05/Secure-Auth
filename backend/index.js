@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import { connectDB } from "./db/connectDB.js";
@@ -9,6 +10,10 @@ dotenv.config();        // to get the constants from the dotenv file instead of 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// origin -> our React application
+// credentials -> so that we can send cookies and requests
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 // app.get("/", (req, res) => {
 //     res.send("Hello World!");
