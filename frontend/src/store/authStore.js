@@ -7,11 +7,12 @@ axios.defaults.withCredentials = true; // for every request axios will put cooki
 
 export const useAuthStore = create((set) => ({
   // initial states
-  user:null,
-  isAuthenticated:false,
-  error:null,
-  isLoading:false,
-  isCheckingAuth:true,
+  user: null,
+  isAuthenticated: false,
+  error: null,
+  isLoading: false,
+  isCheckingAuth: true,
+  message: null,
 
   signup: async(email, password, name) => {
     set({ isLoading:true, error:null });
@@ -82,6 +83,40 @@ export const useAuthStore = create((set) => ({
     } catch (error) {
       set({
         error: error.response.data.message || "Error Verifying Email",
+        isLoading: false
+      });
+      throw error;
+    }
+  },
+
+  forgotPassword: async(email) => {
+    set({ isLoading:true, error:null, message:null });
+    try {
+      const response = await axios.post(`${API_URL}/forgot-password`, {email});
+      set({
+        message: response.data.message,
+        isLoading: false
+      });
+    } catch (error) {
+      set({
+        error: error.response.data.message || "Error Sending reset password link",
+        isLoading: false
+      });
+      throw error;
+    }
+  },
+
+  resetPassword: async(token,password) => {
+    set({ isLoading:true, error:null });
+    try {
+      const response = await axios.post(`${API_URL}/reset-password/${token}`, {password});
+      set({
+        message: response.data.message,
+        isLoading: false
+      });
+    } catch (error) {
+      set({
+        error: error.response.data.message || "Error Resetting Password",
         isLoading: false
       });
       throw error;
