@@ -4,7 +4,7 @@ import Input from '../components/Input';
 import { Loader, Lock, Mail, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
-import { useAuthStore } from '../store/store.js';
+import { useAuthStore } from '../store/authStore.js';
 
 const SignUpPage = () => {
 
