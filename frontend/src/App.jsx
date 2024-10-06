@@ -2,25 +2,26 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 import FloatingShape from './components/FloatingShape'
+import LoadingSpinner from './components/LoadingSpinner'
 
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
 import EmailVerficationPage from './pages/EmailVerficationPage'
+import DashboardPage from './pages/DashboardPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 
 import {Toaster} from "react-hot-toast"
 import { useAuthStore } from './store/authStore'
-import { Children, useEffect } from 'react'
-import DashboardPage from './pages/DashboardPage'
-import LoadingSpinner from './components/LoadingSpinner'
-import ForgotPasswordPage from './pages/ForgotPasswordPage'
-import ResetPasswordPage from './pages/ResetPasswordPage'
+import { useEffect } from 'react'
+
 
 // redirect authenticated users to the homepage
 const RedirectUser = ({children}) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if(isAuthenticated && user.isVerified){
-    return <Navigate to="/" replace />  // replace -> to replace it with the current page
+    return <Navigate to='/' replace />  // replace -> to replace it with the current page
   }
 
   return children
@@ -91,6 +92,7 @@ function App() {
             <ResetPasswordPage/>
           </RedirectUser>
         } />
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
       <Toaster/>
     </div>
